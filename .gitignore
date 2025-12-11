@@ -1,0 +1,23 @@
+# --- Python & Jupyter System Files ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+venv/
+env/
+
+# --- Large Data Files ---
+# We generally do not commit large raw datasets to GitHub.
+# Keep the 'processed' data if it's small (for the map to work),
+# but ignore the big raw stuff.
+data/raw/*.tif
+data/raw/*.zip
+data/raw/*.graphml
+
+# --- OS System Files ---
+.DS_Store
+Thumbs.db
+
+# --- Optional: Ignore results if you only want to show the final HTML ---
+# If your results folder is huge, uncomment the line below.
+# results/

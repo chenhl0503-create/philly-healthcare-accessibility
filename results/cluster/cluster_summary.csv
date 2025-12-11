@@ -1,0 +1,5 @@
+Cluster_Label,access_all,SVI_Clean
+"Critical Desert (High SVI, Low Access)",7.872915634119682,0.7753832259450172
+Moderate Access (High SVI),9.627612758410113,0.8443438771245472
+"Privileged (Low SVI, High Access)",10.55905391399758,0.3121735632183908
+"Supported (High SVI, High Access)",11.211908204343668,0.8580955809315975
