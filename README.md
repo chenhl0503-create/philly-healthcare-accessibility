@@ -17,12 +17,12 @@
 
 ## 📖 Project Overview
 
-COVID-19 acted as a stress test for urban healthcare systems. [cite_start]When mobility is restricted, traditional metrics such as “20-minute driving catchments” become unrealistic for low-income, carless, and essential workers[cite: 306, 307].
+COVID-19 acted as a stress test for urban healthcare systems. When mobility is restricted, traditional metrics such as “20-minute driving catchments” become unrealistic for low-income, carless, and essential workers.
 
-[cite_start]This project investigates the **“Philadelphia Paradox”**: a city with world-class hospitals (Penn, Jefferson) that still suffers from severe health disparities by neighborhood and race[cite: 40, 41]. Moving beyond simple Euclidean distance, the analysis uses an **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model to quantify the gap between:
+This project investigates the **“Philadelphia Paradox”**: a city with world-class hospitals (Penn, Jefferson) that still suffers from severe health disparities by neighborhood and race. Moving beyond simple Euclidean distance, the analysis uses an **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model to quantify the gap between:
 
-* [cite_start]**Theoretical access:** All hospitals reachable on a driving network[cite: 221].
-* [cite_start]**Actual access:** The subset of facilities that accept Medicaid, specifically for socially vulnerable populations[cite: 223].
+* **Theoretical access:** All hospitals reachable on a driving network.
+* **Actual access:** The subset of facilities that accept Medicaid, specifically for socially vulnerable populations.
 
 The final product is the **Philadelphia Healthcare Equity Explorer**, a web-based dashboard that combines E2SFCA accessibility surfaces, Social Vulnerability Index (SVI), clustering, and priority indices to highlight who loses access, where, and by how much.
 
@@ -30,7 +30,7 @@ The final product is the **Philadelphia Healthcare Equity Explorer**, a web-base
 
 ## 🎯 Research Questions
 
-[cite_start]The project is organized around three core research questions[cite: 60]:
+The project is organized around three core research questions:
 
 * **RQ1 (Diagnosis):** How does spatial accessibility to acute healthcare facilities vary across Philadelphia when measured using a realistic road network and an E2SFCA travel time model under free-flow conditions?
 * **RQ2 (Equity):** Is this accessibility equitably distributed, or does it systematically disadvantage socially vulnerable groups?
@@ -43,19 +43,19 @@ The final product is the **Philadelphia Healthcare Equity Explorer**, a web-base
 This project employs a multi-level spatial analysis framework, implemented entirely in Python:
 
 ### Level 1: Baseline – Distance and p-median thinking
-* [cite_start]Nearest-neighbor drive-time and simple distance-based thinking using an OSMnx driving network[cite: 45, 46].
-* [cite_start]This serves as a baseline and is used to debunk the **“distance myth”**: proximity to a hospital does not guarantee meaningful access[cite: 47].
+* Nearest-neighbor drive-time and simple distance-based thinking using an OSMnx driving network.
+* This serves as a baseline and is used to debunk the **“distance myth”**: proximity to a hospital does not guarantee meaningful access.
 
 ### Level 2: Core – E2SFCA accessibility
-* [cite_start]Implementation of the **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model with Gaussian distance decay[cite: 48, 49].
-* [cite_start]Uses provider capacity (beds) and demand (population) to compute accessibility surfaces under free-flow conditions[cite: 50].
-* [cite_start]**Edge-effect correction:** Application of a buffered bounding box (including hospitals in New Jersey and Pennsylvania suburbs) to eliminate artificial “deserts” caused purely by the study-area boundary[cite: 116].
+* Implementation of the **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model with Gaussian distance decay.
+* Uses provider capacity (beds) and demand (population) to compute accessibility surfaces under free-flow conditions.
+* **Edge-effect correction:** Application of a buffered bounding box (including hospitals in New Jersey and Pennsylvania suburbs) to eliminate artificial “deserts” caused purely by the study-area boundary.
 
 ### Level 4: Equity – SVI and Medicaid filters
-* [cite_start]Integration of the **CDC Social Vulnerability Index (SVI)** and Medicaid acceptance to identify **“medical deserts”** where high vulnerability and low accessibility coincide[cite: 55, 56].
+* Integration of the **CDC Social Vulnerability Index (SVI)** and Medicaid acceptance to identify **“medical deserts”** where high vulnerability and low accessibility coincide.
 
 ### Level 3: Optimization – Priority index and siting logic
-* [cite_start]Construction of a **Priority Index**[cite: 51, 52]:
+* Construction of a **Priority Index**:
     ```math
     Priority Index = Normalized Equity Gap \times Normalized SVI
     ```
