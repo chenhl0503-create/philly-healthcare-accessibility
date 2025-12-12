@@ -92,6 +92,8 @@ This project employs a multi-level spatial analysis framework, implemented entir
 └── README.md                       # Project documentation
 ```
 ## 💾 Data Sources
+## Note on data tables: Green-highlighted rows indicate datasets actually used in the final analysis. Other listed datasets were considered for future extensions and are included for documentation only.
+
 
 This analysis combines data collected from **4 distinct sources** using sophisticated methods (API, Scraping):
 
