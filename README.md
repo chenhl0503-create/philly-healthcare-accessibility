@@ -102,11 +102,9 @@ This analysis combines data collected from **4 distinct sources** using sophisti
 ## 💻 How to Run
 
 1. Clone this repository.
-2. Ensure you have the required Python libraries installed:
+
+2. Make sure you have the required Python libraries installed:
 
    ```bash
    pip install geopandas osmnx panel hvplot holoviews rasterio scikit-learn requests beautifulsoup4
-Bash
 
-pip install geopandas osmnx panel hvplot holoviews rasterio scikit-learn requests beautifulsoup4
-Run the Final_beta.ipynb notebook to reproduce the data processing, E2SFCA calculations, and dashboard generation.
