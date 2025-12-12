@@ -9,9 +9,21 @@
 
 ## 🚀 Live Website
 
-**Interactive Dashboard:** [**https://chenhl0503-create.github.io/philly-healthcare-accessibility/**](https://chenhl0503-create.github.io/philly-healthcare-accessibility/)
+## Note on Deliverables (Panel Site vs Quarto Site)
 
-> The interactive site is generated via a Panel dashboard and served from the `docs/index.html` file in this repository.
+The **primary deliverable** for this project is the original Panel-exported interactive website:
+
+- Main site (full interactive dashboard):  
+  https://chenhl0503-create.github.io/philly-healthcare-accessibility/
+
+After realizing the course write-up rubric explicitly mentions a **multi-page Quarto site**, I also created a **separate Quarto-based documentation site**:
+
+- Quarto site (multi-page documentation, lighter content):  
+  https://chenhl0503-create.github.io/philly-healthcare-accessibility/quarto_site/
+
+**Important:** The Quarto site is intentionally shorter and more “documentation-style”.  
+For evaluation of the full technical implementation, interactivity, and final storytelling, please use the **main Panel site** as the core basis.
+
 
 ---
 
