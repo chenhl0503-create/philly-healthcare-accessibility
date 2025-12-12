@@ -1,20 +1,15 @@
 project:
   type: website
-  output-dir: ..
-  resources:
-    - ../Figures/**
-    - ../site_assets/**
-    - ../dashboard.html
-    - ../assets/**
+  output-dir: quarto_site
 
 website:
-  title: "Philadelphia Healthcare Equity Explorer, Quarto Companion"
+  title: "Philadelphia Healthcare Equity Explorer (Quarto)"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - href: methods.qmd
-        text: Data and Methods
+        text: Data & Methods
       - href: results.qmd
         text: Results
       - href: dashboard.qmd
@@ -28,4 +23,11 @@ format:
   html:
     theme: cosmo
     toc: true
-    code-fold: true
+    toc-depth: 3
+
+execute:
+  enabled: false
+
+resources:
+  - Figures/**
+  - site_assets/**

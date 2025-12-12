@@ -1,132 +1,55 @@
 ---
 title: "Data & Methods"
-format:
-  html:
-    toc: true
 ---
-
-# Data and methods
 
 ## 1. Data overview
 
 ### 1.1 Supply-side data
-
-![](assets/Figures/DataTable/supply_table.png){width=100%}
-
-The supply table lists datasets that describe **where care is provided**:
-
-- **Hospitals and acute-care facilities**, core supply points, merged from OpenDataPhilly, state health agencies, CMS and OpenStreetMap, then de-duplicated by name and address.
-- **City and community health centers**, safety-net providers scraped from the Philadelphia Department of Public Health website to fill gaps in official open data.
-- **Buffer-area hospitals**, facilities in surrounding counties that fall within the network catchment of Philadelphia tracts, essential for correcting **edge effects**.
-- **Hospital bed capacity**, used as a proxy for acute-care capacity when computing supply-to-demand ratios in the E2SFCA model.
+![](Figures/data_tables/supply_table.png){fig-alt="Supply-side data table" width="100%"}
 
 ### 1.2 Demand-side data
-
-![](assets/Figures/DataTable/demand_table.png){width=100%}
-
-Demand-side datasets describe **who needs care** and **how vulnerable they are**:
-
-- **Total population by tract (ACS 2021)**, baseline demand in accessibility calculations.
-- **Social Vulnerability Index (SVI, CDC ATSDR)**, tract-level composite index in the range 0–1 capturing socioeconomic status, minority status, housing and transportation vulnerability.
-- **Medicaid share**, approximated from ACS insurance tables.
-- **WorldPop population grid**, high-resolution raster used to cross-check ACS population counts through zonal statistics.
+![](Figures/data_tables/demand_table.png){fig-alt="Demand-side data table" width="100%"}
 
 ### 1.3 Basic spatial and network data
-
-![](assets/Figures/DataTable/spatial_network_table.png){width=100%}
-
-Spatial and network layers provide the **geographic backbone** for the model:
-
-- **Census tract boundaries, including neighbors**, TIGER/Line with an extended region for edge-effect correction.
-- **Road network (driving graph)**, extracted from OpenStreetMap via OSMnx, with speed estimates and travel times.
-- **Travel-time OD matrix (minutes)**, between tract centroids and facilities, computed on the OSMnx graph.
-- **HUD Qualified Census Tracts (QCT)**, additional vulnerability layer to identify historically disadvantaged tracts.
-- **City and county boundary**, used only for masking, to avoid truncating catchments at the study-area border.
+![](Figures/data_tables/spatial_network_table.png){fig-alt="Spatial and network data table" width="100%"}
 
 ---
 
-## 2. Data acquisition methods
+## 2. Methods
 
-### (a) APIs and web services
+### 2.1 Preprocessing and integration
 
-- **ArcGIS REST API (HUD QCT)**, queried as GeoJSON and filtered to the extended Philadelphia region.
-- **Nominatim geocoding API**, geocodes scraped health center addresses via `geopy`.
+Key steps:
+- Cleaning and standardising IDs (tract GEOID, facility IDs)
+- Merging hospital, buffer hospitals, and community health centers into one supply layer
+- Validating population counts (ACS baseline, WorldPop cross-check)
+- Constructing SVI and Medicaid-related indicators
 
-### (b) Web scraping
+### 2.2 Network analysis and accessibility modelling
 
-- **BeautifulSoup scraper for city health centers**, parses HTML tables, standardizes addresses, writes clean CSV before geocoding.
+#### 2.2.1 Analytical pipeline
+![](Figures/overview/data_pipeline.png){fig-alt="Analytical pipeline" width="100%"}
 
-### (c) Specialized Python libraries
+#### 2.2.2 Baseline drive time and the edge-effect problem
+![](Figures/overview/drive_time_nearest.png){fig-alt="Nearest provider drive time (baseline)" width="100%"}
 
-- **OSMnx**, downloads drivable road network, adds travel times, provides nearest-node mapping.
-- **GeoPandas and Rasterio**, projections and zonal statistics on WorldPop to validate population totals.
+![](Figures/results/01_missteps_edge_effects/01_error_edge_effect_demonstration_fixed.png){fig-alt="Edge-effect demonstration and correction" width="100%"}
 
-### (d) Manual downloads
+#### 2.2.3 Intermediate process checks
+![](Figures/results/02_intermediate_process/02_process_pop_density.png){fig-alt="Population density process map" width="100%"}
 
-- **WorldPop raster**, stored locally and read from disk, not downloaded by script in the repo.
-- **CDC SVI files**, downloaded and read from disk as documented in the project.
+![](Figures/results/02_intermediate_process/02_process_SVI_distribution.png){fig-alt="SVI distribution process map" width="100%"}
 
 ---
 
-## 3. Methods
+### 2.3 Machine learning clustering and neighborhood typologies
 
-### 3.1 Preprocessing and integration
+Using **KMeans clustering from scikit-learn**, tract-level indicators are clustered into interpretable neighborhood types.
 
-1. **Cleaning and standardising IDs**, tract datasets keyed by `GEOID`, facility datasets keyed by `facility_id`.
-2. **Merging supply layers**, hospitals, buffer-area hospitals, community health centers into one facility layer.
-3. **Validating population counts**, WorldPop zonal stats compared with ACS totals, ACS remains authoritative.
-4. **Constructing vulnerability indicators**, SVI re-scaled into 0–1, Medicaid share joined to the tract layer.
+#### 2.3.1 Clustering diagnostics and visuals
+![](Figures/results/cluster/scatter_high_contrast.png){fig-alt="Cluster scatter plot (SVI vs access)" width="100%"}
 
-### 3.2 Network analysis and accessibility modelling
+![](Figures/results/cluster/boxplot_high_contrast.png){fig-alt="Cluster boxplot comparison" width="100%"}
 
-#### 3.2.1 Analytical pipeline
-
-![](assets/Figures/overview/data_pipeline.png){width=100%}
-
-1. Data collection via APIs, scraping and manual downloads.  
-2. Preprocessing and integration of supply, demand and vulnerability data.  
-3. Network analysis and E2SFCA on an OSMnx driving graph to compute accessibility metrics.  
-4. Clustering and dashboarding to turn indicators into typologies and interactive exploration.
-
-#### 3.2.2 Baseline drive time and the edge-effect problem
-
-![](assets/Figures/overview/drive_time_nearest.png){width=100%}
-
-This map shows **drive time to the nearest provider** computed only from hospitals inside the Philadelphia city boundary. The boundary-shaped pattern indicates an **edge effect**, facilities just outside the boundary are ignored, creating artificial “deserts”.
-
-![](assets/Figures/results/01_missteps_edge_effects/01_error_edge_effect_demonstration_fixed.png){width=100%}
-
-To correct this, the model is re-run with a **buffer region of facilities**, recomputing the OD matrix on the buffered network.
-
-#### 3.2.3 E2SFCA accessibility with Gaussian decay
-
-The **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model is implemented as the core accessibility metric:
-
-- **Step 1**, facility catchment ratios  
-  \( R_j = S_j / \sum_i D_i w(d_{ij}) \)
-
-- **Step 2**, tract accessibility scores  
-  \( A_i = \sum_j R_j w(d_{ij}) \)
-
-The model is run twice:
-
-- All facilities (`access_all`)  
-- Medicaid-accepting facilities only (`Access_Score`)
-
-The **Equity_Gap** is defined as percent loss when restricted to Medicaid facilities, and **Weighted_Impact** combines Equity_Gap with SVI.
-
-### 3.3 Machine learning clustering and neighborhood typologies
-
-![](assets/Figures/results/cluster/scatter_high_contrast.png){width=100%}
-
-This stage introduces the machine learning component using **KMeans clustering (scikit-learn)** on tract-level indicators:
-
-- Input features include SVI, Medicaid-constrained accessibility, and sometimes Equity_Gap, all standardized.
-- A four-cluster solution balances interpretability and within-cluster variance.
-
-Typologies:
-
-- High SVI, Low Access, **Critical deserts**
-- High SVI, High Access, **Supported but vulnerable**
-- Low SVI, High Access, **Privileged**
-- Low SVI, Low Access, **Low-access but less vulnerable**
+#### 2.3.2 Typology legend used in final maps
+![](Figures/final_deliverables/publication_maps_v5/03_typologies_legend_forced.png){fig-alt="Typology legend" width="100%"}

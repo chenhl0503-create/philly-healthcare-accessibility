@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Results",
+    "section": "",
+    "text": "This section summarizes the final outputs used to answer RQ1–RQ3.\n\n\n\n\n\n\n\n\n\n\n\n\nIf the iframe fails to load, open directly:\nFigures/results/03_final_deliverables/04_final_recommendation_map_interactive.html"
+  },
+  {
+    "objectID": "results.html#results",
+    "href": "results.html#results",
+    "title": "Results",
+    "section": "",
+    "text": "This section summarizes the final outputs used to answer RQ1–RQ3.\n\n\n\n\n\n\n\n\n\n\n\n\nIf the iframe fails to load, open directly:\nFigures/results/03_final_deliverables/04_final_recommendation_map_interactive.html"
+  },
+  {
+    "objectID": "methods.html#methods",
+    "href": "methods.html#methods",
+    "title": "Data & Methods",
+    "section": "2. Methods",
+    "text": "2. Methods\n\n2.1 Preprocessing and integration\nKey steps: - Cleaning and standardising IDs (tract GEOID, facility IDs) - Merging hospital, buffer hospitals, and community health centers into one supply layer - Validating population counts (ACS baseline, WorldPop cross-check) - Constructing SVI and Medicaid-related indicators\n\n\n2.2 Network analysis and accessibility modelling\n\n2.2.1 Analytical pipeline\n\n\n\n2.2.2 Baseline drive time and the edge-effect problem\n\n\n\n\n2.2.3 Intermediate process checks\n\n\n\n\n\n\n2.3 Machine learning clustering and neighborhood typologies\nUsing KMeans clustering from scikit-learn, tract-level indicators are clustered into interpretable neighborhood types.\n\n2.3.1 Clustering diagnostics and visuals\n\n\n\n\n2.3.2 Typology legend used in final maps"
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the interactive deliverable exported under:\nFigures/results/03_final_deliverables/index.html\n\n\nIf the iframe fails to load, open directly:\nFigures/results/03_final_deliverables/index.html"
+  },
+  {
+    "objectID": "dashboard.html#interactive-explorer-final-deliverables",
+    "href": "dashboard.html#interactive-explorer-final-deliverables",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the interactive deliverable exported under:\nFigures/results/03_final_deliverables/index.html\n\n\nIf the iframe fails to load, open directly:\nFigures/results/03_final_deliverables/index.html"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Author: Haolong Chen\nProgram: Master of City Planning, Smart Cities concentration\nInstitution: University of Pennsylvania\nThis site is the final project for MUSA 5500 and also forms the empirical core of a broader thesis on healthcare accessibility and equity in Philadelphia."
+  },
+  {
+    "objectID": "about.html#purpose",
+    "href": "about.html#purpose",
+    "title": "About",
+    "section": "Purpose",
+    "text": "Purpose\nThe project demonstrates how network-based accessibility models and equity metrics can be combined to diagnose where acute-care access is structurally limited, quantify the Medicaid equity gap, and propose priority locations for new or expanded facilities."
+  },
+  {
+    "objectID": "about.html#technical-stack",
+    "href": "about.html#technical-stack",
+    "title": "About",
+    "section": "Technical stack",
+    "text": "Technical stack\nPython libraries, GeoPandas, Pandas, NumPy, OSMnx, NetworkX, Rasterio, scikit-learn, hvPlot, Holoviews, Panel.\nVisualization, Bokeh tiles and Carto basemaps for web-native maps.\nDeployment, Panel exported HTML embedded into a Quarto multi-page website, served via GitHub Pages."
+  },
+  {
+    "objectID": "about.html#disclaimer",
+    "href": "about.html#disclaimer",
+    "title": "About",
+    "section": "Disclaimer",
+    "text": "Disclaimer\nThis is a student research project, not an official product of the City of Philadelphia, the University of Pennsylvania, or any healthcare provider."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19",
+    "section": "",
+    "text": "Author: Haolong Chen\nCourse: UPenn MUSA 5500 Geospatial Data Science in Python\nDate: December 12, 2025"
+  },
+  {
+    "objectID": "index.html#live-website-main-panel-site",
+    "href": "index.html#live-website-main-panel-site",
+    "title": "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19",
+    "section": "Live Website (Main Panel Site)",
+    "text": "Live Website (Main Panel Site)\nMain interactive dashboard (original Panel export):\nhttps://chenhl0503-create.github.io/philly-healthcare-accessibility/\n\nThis Quarto website is an additional multi-page documentation site that embeds the exported deliverables and figures."
+  },
+  {
+    "objectID": "index.html#project-overview",
+    "href": "index.html#project-overview",
+    "title": "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19",
+    "section": "Project Overview",
+    "text": "Project Overview\nCOVID-19 acted as a stress test for urban healthcare systems. When mobility is restricted, traditional metrics such as “20-minute driving catchments” become unrealistic for low-income, carless, and essential workers.\nThis project investigates the Philadelphia Paradox: a city with world-class hospitals (Penn, Jefferson) that still suffers from severe health disparities by neighborhood and race. Moving beyond simple Euclidean distance, the analysis uses an Enhanced Two-Step Floating Catchment Area (E2SFCA) model to quantify the gap between:\n\nTheoretical access: all hospitals reachable on a driving network\n\nActual access: the subset of facilities that accept Medicaid, for socially vulnerable populations"
+  },
+  {
+    "objectID": "index.html#motivation-snapshots-covid-context",
+    "href": "index.html#motivation-snapshots-covid-context",
+    "title": "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19",
+    "section": "Motivation snapshots (COVID context)",
+    "text": "Motivation snapshots (COVID context)"
+  },
+  {
+    "objectID": "index.html#quick-visual-entry-points",
+    "href": "index.html#quick-visual-entry-points",
+    "title": "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19",
+    "section": "Quick visual entry points",
+    "text": "Quick visual entry points"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "The full thesis engages with over 200 academic and policy sources. Below are the core methodological references that anchor the models and interpretations shown in this site."
+  },
+  {
+    "objectID": "references.html#key-methodological-references",
+    "href": "references.html#key-methodological-references",
+    "title": "References",
+    "section": "Key methodological references",
+    "text": "Key methodological references\n\nCDC. (2020). Delay or Avoidance of Medical Care Because of COVID-19–Related Concerns. MMWR Morbidity and Mortality Weekly Report.\nLuo, W., & Qi, Y. (2009). An enhanced two-step floating catchment area (E2SFCA) method. Health & Place.\nWang, F. (2012). Measurement, optimization, and impact of health care accessibility: A methodological review. Annals of the AAG.\nPlaney, A. M., et al. (2022). Locating equity: Spatial access and health equity analysis of the Medicaid-accepting safety-net. Social Science & Medicine.\nRoy, A., & Kar, B. (2022). A multicriteria decision analysis framework to measure equitable healthcare access during COVID-19.\nFaraji-Najarkolaie, F., et al. (2022). Expanding vulnerability indices for pandemic effects. Journal of Transport & Health.\n\nEtc, additional sources are cited in the written paper but omitted here for brevity."
+  },
+  {
+    "objectID": "references.html#data-sources",
+    "href": "references.html#data-sources",
+    "title": "References",
+    "section": "Data sources",
+    "text": "Data sources\n\nU.S. Census Bureau, ACS 5-year estimates (2021)\nCDC / ATSDR Social Vulnerability Index (SVI)\nOpenDataPhilly and state health sources for hospitals\nCity of Philadelphia and health department pages for community health centers\nHUD Qualified Census Tracts (QCT)\nOpenStreetMap via OSMnx\nWorldPop raster grids"
+  }
+]

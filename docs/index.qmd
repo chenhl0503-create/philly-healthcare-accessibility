@@ -1,66 +1,50 @@
 ---
-title: "Project Overview"
+title: "Beyond Distance: Spatial Accessibility and Equity of Healthcare During COVID-19"
+subtitle: "A Case Study of Philadelphia"
 ---
 
-This final project for **MUSA 5500 Geospatial Data Science in Python** uses Philadelphia as a case study to examine how spatial accessibility to acute care changes once we move beyond simple distance and incorporate capacity, insurance acceptance, and social vulnerability.
+**Author:** Haolong Chen  
+**Course:** UPenn MUSA 5500 Geospatial Data Science in Python  
+**Date:** December 12, 2025
 
-## Research questions
+## Live Website (Main Panel Site)
 
-<span style="color:#b30000;"><strong>RQ1 (Diagnosis):</strong> How does spatial accessibility to acute healthcare facilities vary across Philadelphia when measured using a realistic road network and an E2SFCA travel time model under free flow conditions? (Addressed by Levels 1 and 2.)</span>
+Main interactive dashboard (original Panel export):  
+https://chenhl0503-create.github.io/philly-healthcare-accessibility/
 
-<span style="color:#b30000;"><strong>RQ2 (Equity):</strong> Is this accessibility equitably distributed, or does it systematically disadvantage socially vulnerable groups? (Addressed by Level 4.)</span>
+> This Quarto website is an additional multi-page documentation site that embeds the exported deliverables and figures.
 
-<span style="color:#b30000;"><strong>RQ3 (Intervention):</strong> Where should new facilities be located to maximize impact for the most vulnerable? (Addressed by Level 3 logic.)</span>
+## Project Overview
 
-## Hypotheses
+COVID-19 acted as a stress test for urban healthcare systems. When mobility is restricted, traditional metrics such as “20-minute driving catchments” become unrealistic for low-income, carless, and essential workers.
 
-**H1 [Beyond distance].** Even when realistic road network travel times are used, variations in spatial accessibility will not be primarily driven by physical distance to hospitals, but by capacity constraints and spatial mismatches between supply and demand.
+This project investigates the **Philadelphia Paradox**: a city with world-class hospitals (Penn, Jefferson) that still suffers from severe health disparities by neighborhood and race. Moving beyond simple Euclidean distance, the analysis uses an **Enhanced Two-Step Floating Catchment Area (E2SFCA)** model to quantify the gap between:
 
-**H2 [The Medicaid gap].** Vulnerable populations will face a significant accessibility penalty when limited to Medicaid accepting facilities, confirming structural inequity.
+- **Theoretical access:** all hospitals reachable on a driving network  
+- **Actual access:** the subset of facilities that accept Medicaid, for socially vulnerable populations  
 
-**H3 [Targeted optimization].** Siting new facilities based on a multi criteria "Gap Index" that combines population with SVI will be more effective than traditional density based planning.
+## Motivation snapshots (COVID context)
 
-## Five analytical levels
+::: {.columns}
+::: {.column width="50%"}
+![](Figures/background/cdc_avoid_care.png){fig-alt="CDC: delay or avoidance of medical care during COVID" width="100%"}
+:::
+::: {.column width="50%"}
+![](Figures/background/closed_sign.png){fig-alt="Closed sign, COVID disruption" width="100%"}
+:::
+:::
 
-**Level 1, naive distance and p median**  
-Method, Euclidean distance or shortest path travel time and a simple p median allocation.  
-Role, Baseline that illustrates the "distance myth", physical proximity alone does not guarantee real access because capacity is ignored.
+::: {.columns}
+::: {.column width="50%"}
+![](Figures/background/key_evidence_table.png){fig-alt="Key evidence table" width="100%"}
+:::
+::: {.column width="50%"}
+![](Figures/background/long_queue.png){fig-alt="Long queue, pandemic pressure" width="100%"}
+:::
+:::
 
-**Level 2, interaction via E2SFCA**  
-Method, Enhanced Two Step Floating Catchment Area with Gaussian distance decay.  
-Role, Core engine that quantifies accessibility as a capacity adjusted ratio on the road network, integrating supply and demand within realistic catchments.
+## Quick visual entry points
 
-**Level 3, optimization and gap logic**  
-Method, Light demand gap index and simple maximal coverage reasoning, selecting a small set of candidate sites.  
-Role, Scenario tool that tests how three to five new facilities under a budget constraint could shift access for high priority tracts.
+![](Figures/overview/access_paradox.png){fig-alt="Access paradox map" width="100%"}
 
-**Level 4, equity integration**  
-Method, Social Vulnerability Index and Medicaid only filtering applied to Level 2 scores.  
-Role, Turns accessibility into a distributive justice question, asking who loses how much access and where vulnerable groups are systematically penalized.
-
-**Level 5, emerging AI and robustness**  
-Method, Predictive machine learning and simple stochastic surge models.  
-Role, Frames a longer term research agenda that can predict hidden demand and stress test the system under future shocks, beyond the scope of a single masters thesis.
-
-## Position of the current work
-
-**Core of the thesis**
-
-- **Level 2** [E2SFCA] provides the minimum scientifically credible measure of spatial accessibility.
-- **Level 4** [equity integration with SVI and Medicaid] translates accessibility into explicit distributive justice questions, connecting the model to planning practice.
-
-**Baseline and teaching tools**
-
-- **Level 1** [naive distance and p median] serves as a baseline that demonstrates the "distance myth".
-  It is valuable for teaching and communication, but it is not sufficient for serious policy guidance.
-
-**Optional extensions**
-
-- **Level 3** [a light MCLP style siting of three to five facilities] is implemented as scenario analysis.
-  It helps explore intervention options, but it is not required to answer the core diagnostic and equity questions.
-- **Level 5** [predictive or robust optimization] is outlined as future work, for example using machine learning to infer hidden demand or simple stochastic models of surge events.
-
-**Message for the committee**
-
-Levels **2** and **4** form the smallest, necessary combination that fully answers **RQ1** and **RQ2** for this thesis.  
-Level **1** anchors the analysis in intuitive baselines, while Levels **3** and **5** define a realistic longer term research agenda that can be pursued beyond this project.
+![](Figures/overview/data_pipeline.png){fig-alt="Data and methods pipeline" width="100%"}
