@@ -1,0 +1,54 @@
+---
+title: "Results"
+format:
+  html:
+    toc: true
+---
+
+# Results
+
+This section answers **RQ1–RQ3** using the final E2SFCA accessibility surfaces, Medicaid equity gaps, and priority-based siting logic.
+
+---
+
+## 1. The Medicaid equity gap (RQ2)
+
+![](assets/Figures/results/03_final_deliverables/03_final_equity_gap_map_optimized.png){width=100%}
+
+The map shows **percentage accessibility loss** when the network is restricted to **Medicaid-accepting facilities only**. Darker areas indicate tracts where a large share of E2SFCA access is lost due to insurance acceptance constraints.
+
+---
+
+## 2. Neighborhood typologies (RQ2)
+
+![](assets/Figures/results/cluster/scatter_high_contrast.png){width=100%}
+
+The scatter plot summarizes clustering results on accessibility and SVI:
+
+- **Privileged**, low SVI, high access  
+- **Supported**, high SVI, high access  
+- **Moderate**, high SVI, mid access  
+- **Critical deserts**, high SVI, low access  
+
+This supports the interpretation that meaningful access is shaped by capacity and Medicaid acceptance, not distance alone.
+
+---
+
+## 3. Priority index and site recommendations (RQ3)
+
+To guide intervention, the project defines a **Priority Index**:
+
+$$
+Priority\ Index = Normalized\ Equity\ Gap \times Normalized\ SVI
+$$
+
+High values flag tracts that are both highly vulnerable and lose a large share of access under Medicaid constraints.
+
+### Embedded interactive explorer (for siting context)
+
+<iframe src="assets/site_assets/dashboard.html" width="100%" height="900" style="border:1px solid #ddd; border-radius:8px;"></iframe>
+
+Notes:
+
+- Use the metric selector in the dashboard to view **Weighted Impact (Priority Index)** and **Equity Gap**.
+- The siting logic focuses on the upper tail of the Priority Index distribution to identify clusters of critical deserts.

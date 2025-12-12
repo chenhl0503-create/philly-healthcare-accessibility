@@ -1,0 +1,26 @@
+---
+title: "References"
+---
+
+The full thesis engages with over 200 academic and policy sources. Below are the core methodological references that anchor the models and interpretations shown in this site.
+
+## Key methodological references
+
+- CDC. (2020). Delay or Avoidance of Medical Care Because of COVID-19–Related Concerns. MMWR Morbidity and Mortality Weekly Report.
+- Luo, W., & Qi, Y. (2009). An enhanced two-step floating catchment area (E2SFCA) method. Health & Place.
+- Wang, F. (2012). Measurement, optimization, and impact of health care accessibility: A methodological review. Annals of the AAG.
+- Planey, A. M., et al. (2022). Locating equity: Spatial access and health equity analysis of the Medicaid-accepting safety-net. Social Science & Medicine.
+- Roy, A., & Kar, B. (2022). A multicriteria decision analysis framework to measure equitable healthcare access during COVID-19.
+- Faraji-Najarkolaie, F., et al. (2022). Expanding vulnerability indices for pandemic effects. Journal of Transport & Health.
+
+Etc, additional sources are cited in the written paper but omitted here for brevity.
+
+## Data sources
+
+- U.S. Census Bureau, ACS 5-year estimates (2021)
+- CDC / ATSDR Social Vulnerability Index (SVI)
+- OpenDataPhilly and state health sources for hospitals
+- City of Philadelphia and health department pages for community health centers
+- HUD Qualified Census Tracts (QCT)
+- OpenStreetMap via OSMnx
+- WorldPop raster grids

@@ -1,0 +1,25 @@
+---
+title: "About"
+---
+
+**Author:** Haolong Chen  
+**Program:** Master of City Planning, Smart Cities concentration  
+**Institution:** University of Pennsylvania  
+
+This site is the final project for MUSA 5500 and also forms the empirical core of a broader thesis on healthcare accessibility and equity in Philadelphia.
+
+## Purpose
+
+The project demonstrates how network-based accessibility models and equity metrics can be combined to diagnose where acute-care access is structurally limited, quantify the Medicaid equity gap, and propose priority locations for new or expanded facilities.
+
+## Technical stack
+
+Python libraries, GeoPandas, Pandas, NumPy, OSMnx, NetworkX, Rasterio, scikit-learn, hvPlot, Holoviews, Panel.
+
+Visualization, Bokeh tiles and Carto basemaps for web-native maps.
+
+Deployment, Panel exported HTML embedded into a Quarto multi-page website, served via GitHub Pages.
+
+## Disclaimer
+
+This is a student research project, not an official product of the City of Philadelphia, the University of Pennsylvania, or any healthcare provider.

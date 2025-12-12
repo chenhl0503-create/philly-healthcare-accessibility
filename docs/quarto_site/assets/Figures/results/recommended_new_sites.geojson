@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "recommended_new_sites",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::32129" } },
+"features": [
+{ "type": "Feature", "properties": { "GEOID": "42101006700", "gap_index": 1259.8203753682067, "population": 7901, "access_medicaid": 6.1586414632580837, "suggestion": "Priority Site #1" }, "geometry": { "type": "Point", "coordinates": [ 815889.853305540280417, 68699.511835982237244 ] } },
+{ "type": "Feature", "properties": { "GEOID": "42101033000", "gap_index": 1228.5047571662021, "population": 10074, "access_medicaid": 7.5679760666504174, "suggestion": "Priority Site #2" }, "geometry": { "type": "Point", "coordinates": [ 831788.58439151966013, 81318.608449156337883 ] } },
+{ "type": "Feature", "properties": { "GEOID": "42101019200", "gap_index": 1132.7046354144127, "population": 8667, "access_medicaid": 7.4442392450482142, "suggestion": "Priority Site #3" }, "geometry": { "type": "Point", "coordinates": [ 824966.020591316511855, 77453.028404383323505 ] } }
+]
+}

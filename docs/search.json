@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "methods.html",
+    "href": "methods.html",
+    "title": "Data & Methods",
+    "section": "",
+    "text": "Content coming soon."
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the Panel dashboard exported from Python."
+  },
+  {
+    "objectID": "dashboard.html#interactive-explorer",
+    "href": "dashboard.html#interactive-explorer",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the Panel dashboard exported from Python."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "project:",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  }
+]
