@@ -79,34 +79,33 @@ This project employs a multi-level spatial analysis framework, implemented entir
 ├── .gitignore                      # Git ignore file
 └── README.md                       # Project documentation
 
-💾 Data Sources
-This analysis combines data collected from 4 distinct sources using sophisticated methods (API, Scraping):
+## 💾 Data Sources
 
-Supply:
+This analysis combines data collected from **4 distinct sources** using sophisticated methods (API, Scraping):
 
-Hospitals: OpenDataPhilly & CMS Hospital Compare (API/CSV).
+1. **Supply:**
+   * **Hospitals:** OpenDataPhilly & CMS Hospital Compare (API/CSV).
+   * **Health Centers:** Web scraped from `phila.gov` using `BeautifulSoup`.
 
-Health Centers: Web scraped from phila.gov using BeautifulSoup.
+2. **Demand:**
+   * **Population:** US Census ACS 2021 via Census API.
 
-Demand:
+3. **Network:**
+   * **Roads:** OpenStreetMap drivable network via `OSMnx`.
 
-Population: US Census ACS 2021 via Census API.
+4. **Equity:**
+   * **SVI:** CDC Social Vulnerability Index 2020 (CSV).
+   * **Policy:** HUD Qualified Census Tracts via ArcGIS REST API.
 
-Network:
+---
 
-Roads: OpenStreetMap drivable network via OSMnx.
+## 💻 How to Run
 
-Equity:
+1. Clone this repository.
+2. Ensure you have the required Python libraries installed:
 
-SVI: CDC Social Vulnerability Index 2020 (CSV).
-
-Policy: HUD Qualified Census Tracts via ArcGIS REST API.
-
-💻 How to Run
-Clone this repository.
-
-Ensure you have the required Python libraries installed:
-
+   ```bash
+   pip install geopandas osmnx panel hvplot holoviews rasterio scikit-learn requests beautifulsoup4
 Bash
 
 pip install geopandas osmnx panel hvplot holoviews rasterio scikit-learn requests beautifulsoup4
