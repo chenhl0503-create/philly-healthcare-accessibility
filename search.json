@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Results",
+    "section": "",
+    "text": "This section answers RQ1–RQ3 using the final E2SFCA accessibility surfaces, Medicaid equity gaps, and priority-based siting logic.\n\n\n\n\nThe map shows percentage accessibility loss when the network is restricted to Medicaid-accepting facilities only. Darker areas indicate tracts where a large share of E2SFCA access is lost due to insurance acceptance constraints.\n\n\n\n\n\nThe scatter plot summarizes clustering results on accessibility and SVI:\n\nPrivileged, low SVI, high access\n\nSupported, high SVI, high access\n\nModerate, high SVI, mid access\n\nCritical deserts, high SVI, low access\n\nThis supports the interpretation that meaningful access is shaped by capacity and Medicaid acceptance, not distance alone.\n\n\n\n\nTo guide intervention, the project defines a Priority Index:\n\\[\nPriority\\ Index = Normalized\\ Equity\\ Gap \\times Normalized\\ SVI\n\\]\nHigh values flag tracts that are both highly vulnerable and lose a large share of access under Medicaid constraints.\n\n\n\n\nNotes:\n\nUse the metric selector in the dashboard to view Weighted Impact (Priority Index) and Equity Gap.\nThe siting logic focuses on the upper tail of the Priority Index distribution to identify clusters of critical deserts."
+  },
+  {
+    "objectID": "results.html#the-medicaid-equity-gap-rq2",
+    "href": "results.html#the-medicaid-equity-gap-rq2",
+    "title": "Results",
+    "section": "",
+    "text": "The map shows percentage accessibility loss when the network is restricted to Medicaid-accepting facilities only. Darker areas indicate tracts where a large share of E2SFCA access is lost due to insurance acceptance constraints."
+  },
+  {
+    "objectID": "results.html#neighborhood-typologies-rq2",
+    "href": "results.html#neighborhood-typologies-rq2",
+    "title": "Results",
+    "section": "",
+    "text": "The scatter plot summarizes clustering results on accessibility and SVI:\n\nPrivileged, low SVI, high access\n\nSupported, high SVI, high access\n\nModerate, high SVI, mid access\n\nCritical deserts, high SVI, low access\n\nThis supports the interpretation that meaningful access is shaped by capacity and Medicaid acceptance, not distance alone."
+  },
+  {
+    "objectID": "results.html#priority-index-and-site-recommendations-rq3",
+    "href": "results.html#priority-index-and-site-recommendations-rq3",
+    "title": "Results",
+    "section": "",
+    "text": "To guide intervention, the project defines a Priority Index:\n\\[\nPriority\\ Index = Normalized\\ Equity\\ Gap \\times Normalized\\ SVI\n\\]\nHigh values flag tracts that are both highly vulnerable and lose a large share of access under Medicaid constraints.\n\n\n\n\nNotes:\n\nUse the metric selector in the dashboard to view Weighted Impact (Priority Index) and Equity Gap.\nThe siting logic focuses on the upper tail of the Priority Index distribution to identify clusters of critical deserts."
+  },
+  {
+    "objectID": "methods.html",
+    "href": "methods.html",
+    "title": "Data & Methods",
+    "section": "",
+    "text": "The supply table lists datasets that describe where care is provided:\n\nHospitals and acute-care facilities, core supply points, merged from OpenDataPhilly, state health agencies, CMS and OpenStreetMap, then de-duplicated by name and address.\nCity and community health centers, safety-net providers scraped from the Philadelphia Department of Public Health website to fill gaps in official open data.\nBuffer-area hospitals, facilities in surrounding counties that fall within the network catchment of Philadelphia tracts, essential for correcting edge effects.\nHospital bed capacity, used as a proxy for acute-care capacity when computing supply-to-demand ratios in the E2SFCA model.\n\n\n\n\n\nDemand-side datasets describe who needs care and how vulnerable they are:\n\nTotal population by tract (ACS 2021), baseline demand in accessibility calculations.\nSocial Vulnerability Index (SVI, CDC ATSDR), tract-level composite index in the range 0–1 capturing socioeconomic status, minority status, housing and transportation vulnerability.\nMedicaid share, approximated from ACS insurance tables.\nWorldPop population grid, high-resolution raster used to cross-check ACS population counts through zonal statistics.\n\n\n\n\n\nSpatial and network layers provide the geographic backbone for the model:\n\nCensus tract boundaries, including neighbors, TIGER/Line with an extended region for edge-effect correction.\nRoad network (driving graph), extracted from OpenStreetMap via OSMnx, with speed estimates and travel times.\nTravel-time OD matrix (minutes), between tract centroids and facilities, computed on the OSMnx graph.\nHUD Qualified Census Tracts (QCT), additional vulnerability layer to identify historically disadvantaged tracts.\nCity and county boundary, used only for masking, to avoid truncating catchments at the study-area border.\n\n\n\n\n\n\n\n\n\nArcGIS REST API (HUD QCT), queried as GeoJSON and filtered to the extended Philadelphia region.\nNominatim geocoding API, geocodes scraped health center addresses via geopy.\n\n\n\n\n\nBeautifulSoup scraper for city health centers, parses HTML tables, standardizes addresses, writes clean CSV before geocoding.\n\n\n\n\n\nOSMnx, downloads drivable road network, adds travel times, provides nearest-node mapping.\nGeoPandas and Rasterio, projections and zonal statistics on WorldPop to validate population totals.\n\n\n\n\n\nWorldPop raster, stored locally and read from disk, not downloaded by script in the repo.\nCDC SVI files, downloaded and read from disk as documented in the project.\n\n\n\n\n\n\n\n\n\nCleaning and standardising IDs, tract datasets keyed by GEOID, facility datasets keyed by facility_id.\nMerging supply layers, hospitals, buffer-area hospitals, community health centers into one facility layer.\nValidating population counts, WorldPop zonal stats compared with ACS totals, ACS remains authoritative.\nConstructing vulnerability indicators, SVI re-scaled into 0–1, Medicaid share joined to the tract layer.\n\n\n\n\n\n\n\n\nData collection via APIs, scraping and manual downloads.\n\nPreprocessing and integration of supply, demand and vulnerability data.\n\nNetwork analysis and E2SFCA on an OSMnx driving graph to compute accessibility metrics.\n\nClustering and dashboarding to turn indicators into typologies and interactive exploration.\n\n\n\n\n\nThis map shows drive time to the nearest provider computed only from hospitals inside the Philadelphia city boundary. The boundary-shaped pattern indicates an edge effect, facilities just outside the boundary are ignored, creating artificial “deserts”.\n\nTo correct this, the model is re-run with a buffer region of facilities, recomputing the OD matrix on the buffered network.\n\n\n\nThe Enhanced Two-Step Floating Catchment Area (E2SFCA) model is implemented as the core accessibility metric:\n\nStep 1, facility catchment ratios\n( R_j = S_j / i D_i w(d{ij}) )\nStep 2, tract accessibility scores\n( A_i = j R_j w(d{ij}) )\n\nThe model is run twice:\n\nAll facilities (access_all)\n\nMedicaid-accepting facilities only (Access_Score)\n\nThe Equity_Gap is defined as percent loss when restricted to Medicaid facilities, and Weighted_Impact combines Equity_Gap with SVI.\n\n\n\n\n\nThis stage introduces the machine learning component using KMeans clustering (scikit-learn) on tract-level indicators:\n\nInput features include SVI, Medicaid-constrained accessibility, and sometimes Equity_Gap, all standardized.\nA four-cluster solution balances interpretability and within-cluster variance.\n\nTypologies:\n\nHigh SVI, Low Access, Critical deserts\nHigh SVI, High Access, Supported but vulnerable\nLow SVI, High Access, Privileged\nLow SVI, Low Access, Low-access but less vulnerable"
+  },
+  {
+    "objectID": "methods.html#data-overview",
+    "href": "methods.html#data-overview",
+    "title": "Data & Methods",
+    "section": "",
+    "text": "The supply table lists datasets that describe where care is provided:\n\nHospitals and acute-care facilities, core supply points, merged from OpenDataPhilly, state health agencies, CMS and OpenStreetMap, then de-duplicated by name and address.\nCity and community health centers, safety-net providers scraped from the Philadelphia Department of Public Health website to fill gaps in official open data.\nBuffer-area hospitals, facilities in surrounding counties that fall within the network catchment of Philadelphia tracts, essential for correcting edge effects.\nHospital bed capacity, used as a proxy for acute-care capacity when computing supply-to-demand ratios in the E2SFCA model.\n\n\n\n\n\nDemand-side datasets describe who needs care and how vulnerable they are:\n\nTotal population by tract (ACS 2021), baseline demand in accessibility calculations.\nSocial Vulnerability Index (SVI, CDC ATSDR), tract-level composite index in the range 0–1 capturing socioeconomic status, minority status, housing and transportation vulnerability.\nMedicaid share, approximated from ACS insurance tables.\nWorldPop population grid, high-resolution raster used to cross-check ACS population counts through zonal statistics.\n\n\n\n\n\nSpatial and network layers provide the geographic backbone for the model:\n\nCensus tract boundaries, including neighbors, TIGER/Line with an extended region for edge-effect correction.\nRoad network (driving graph), extracted from OpenStreetMap via OSMnx, with speed estimates and travel times.\nTravel-time OD matrix (minutes), between tract centroids and facilities, computed on the OSMnx graph.\nHUD Qualified Census Tracts (QCT), additional vulnerability layer to identify historically disadvantaged tracts.\nCity and county boundary, used only for masking, to avoid truncating catchments at the study-area border."
+  },
+  {
+    "objectID": "methods.html#data-acquisition-methods",
+    "href": "methods.html#data-acquisition-methods",
+    "title": "Data & Methods",
+    "section": "",
+    "text": "ArcGIS REST API (HUD QCT), queried as GeoJSON and filtered to the extended Philadelphia region.\nNominatim geocoding API, geocodes scraped health center addresses via geopy.\n\n\n\n\n\nBeautifulSoup scraper for city health centers, parses HTML tables, standardizes addresses, writes clean CSV before geocoding.\n\n\n\n\n\nOSMnx, downloads drivable road network, adds travel times, provides nearest-node mapping.\nGeoPandas and Rasterio, projections and zonal statistics on WorldPop to validate population totals.\n\n\n\n\n\nWorldPop raster, stored locally and read from disk, not downloaded by script in the repo.\nCDC SVI files, downloaded and read from disk as documented in the project."
+  },
+  {
+    "objectID": "methods.html#methods",
+    "href": "methods.html#methods",
+    "title": "Data & Methods",
+    "section": "",
+    "text": "Cleaning and standardising IDs, tract datasets keyed by GEOID, facility datasets keyed by facility_id.\nMerging supply layers, hospitals, buffer-area hospitals, community health centers into one facility layer.\nValidating population counts, WorldPop zonal stats compared with ACS totals, ACS remains authoritative.\nConstructing vulnerability indicators, SVI re-scaled into 0–1, Medicaid share joined to the tract layer.\n\n\n\n\n\n\n\n\nData collection via APIs, scraping and manual downloads.\n\nPreprocessing and integration of supply, demand and vulnerability data.\n\nNetwork analysis and E2SFCA on an OSMnx driving graph to compute accessibility metrics.\n\nClustering and dashboarding to turn indicators into typologies and interactive exploration.\n\n\n\n\n\nThis map shows drive time to the nearest provider computed only from hospitals inside the Philadelphia city boundary. The boundary-shaped pattern indicates an edge effect, facilities just outside the boundary are ignored, creating artificial “deserts”.\n\nTo correct this, the model is re-run with a buffer region of facilities, recomputing the OD matrix on the buffered network.\n\n\n\nThe Enhanced Two-Step Floating Catchment Area (E2SFCA) model is implemented as the core accessibility metric:\n\nStep 1, facility catchment ratios\n( R_j = S_j / i D_i w(d{ij}) )\nStep 2, tract accessibility scores\n( A_i = j R_j w(d{ij}) )\n\nThe model is run twice:\n\nAll facilities (access_all)\n\nMedicaid-accepting facilities only (Access_Score)\n\nThe Equity_Gap is defined as percent loss when restricted to Medicaid facilities, and Weighted_Impact combines Equity_Gap with SVI.\n\n\n\n\n\nThis stage introduces the machine learning component using KMeans clustering (scikit-learn) on tract-level indicators:\n\nInput features include SVI, Medicaid-constrained accessibility, and sometimes Equity_Gap, all standardized.\nA four-cluster solution balances interpretability and within-cluster variance.\n\nTypologies:\n\nHigh SVI, Low Access, Critical deserts\nHigh SVI, High Access, Supported but vulnerable\nLow SVI, High Access, Privileged\nLow SVI, Low Access, Low-access but less vulnerable"
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the Panel dashboard exported from Python."
+  },
+  {
+    "objectID": "dashboard.html#interactive-explorer",
+    "href": "dashboard.html#interactive-explorer",
+    "title": "Dashboard",
+    "section": "",
+    "text": "This page embeds the Panel dashboard exported from Python."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Author: Haolong Chen\nProgram: Master of City Planning, Smart Cities concentration\nInstitution: University of Pennsylvania\nThis site is the final project for MUSA 5500 and also forms the empirical core of a broader thesis on healthcare accessibility and equity in Philadelphia."
+  },
+  {
+    "objectID": "about.html#purpose",
+    "href": "about.html#purpose",
+    "title": "About",
+    "section": "Purpose",
+    "text": "Purpose\nThe project demonstrates how network-based accessibility models and equity metrics can be combined to diagnose where acute-care access is structurally limited, quantify the Medicaid equity gap, and propose priority locations for new or expanded facilities."
+  },
+  {
+    "objectID": "about.html#technical-stack",
+    "href": "about.html#technical-stack",
+    "title": "About",
+    "section": "Technical stack",
+    "text": "Technical stack\nPython libraries, GeoPandas, Pandas, NumPy, OSMnx, NetworkX, Rasterio, scikit-learn, hvPlot, Holoviews, Panel.\nVisualization, Bokeh tiles and Carto basemaps for web-native maps.\nDeployment, Panel exported HTML embedded into a Quarto multi-page website, served via GitHub Pages."
+  },
+  {
+    "objectID": "about.html#disclaimer",
+    "href": "about.html#disclaimer",
+    "title": "About",
+    "section": "Disclaimer",
+    "text": "Disclaimer\nThis is a student research project, not an official product of the City of Philadelphia, the University of Pennsylvania, or any healthcare provider."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Project Overview",
+    "section": "",
+    "text": "This final project for MUSA 5500 Geospatial Data Science in Python uses Philadelphia as a case study to examine how spatial accessibility to acute care changes once we move beyond simple distance and incorporate capacity, insurance acceptance, and social vulnerability."
+  },
+  {
+    "objectID": "index.html#research-questions",
+    "href": "index.html#research-questions",
+    "title": "Project Overview",
+    "section": "Research questions",
+    "text": "Research questions\nRQ1 (Diagnosis): How does spatial accessibility to acute healthcare facilities vary across Philadelphia when measured using a realistic road network and an E2SFCA travel time model under free flow conditions? (Addressed by Levels 1 and 2.)\nRQ2 (Equity): Is this accessibility equitably distributed, or does it systematically disadvantage socially vulnerable groups? (Addressed by Level 4.)\nRQ3 (Intervention): Where should new facilities be located to maximize impact for the most vulnerable? (Addressed by Level 3 logic.)"
+  },
+  {
+    "objectID": "index.html#hypotheses",
+    "href": "index.html#hypotheses",
+    "title": "Project Overview",
+    "section": "Hypotheses",
+    "text": "Hypotheses\nH1 [Beyond distance]. Even when realistic road network travel times are used, variations in spatial accessibility will not be primarily driven by physical distance to hospitals, but by capacity constraints and spatial mismatches between supply and demand.\nH2 [The Medicaid gap]. Vulnerable populations will face a significant accessibility penalty when limited to Medicaid accepting facilities, confirming structural inequity.\nH3 [Targeted optimization]. Siting new facilities based on a multi criteria “Gap Index” that combines population with SVI will be more effective than traditional density based planning."
+  },
+  {
+    "objectID": "index.html#five-analytical-levels",
+    "href": "index.html#five-analytical-levels",
+    "title": "Project Overview",
+    "section": "Five analytical levels",
+    "text": "Five analytical levels\nLevel 1, naive distance and p median\nMethod, Euclidean distance or shortest path travel time and a simple p median allocation.\nRole, Baseline that illustrates the “distance myth”, physical proximity alone does not guarantee real access because capacity is ignored.\nLevel 2, interaction via E2SFCA\nMethod, Enhanced Two Step Floating Catchment Area with Gaussian distance decay.\nRole, Core engine that quantifies accessibility as a capacity adjusted ratio on the road network, integrating supply and demand within realistic catchments.\nLevel 3, optimization and gap logic\nMethod, Light demand gap index and simple maximal coverage reasoning, selecting a small set of candidate sites.\nRole, Scenario tool that tests how three to five new facilities under a budget constraint could shift access for high priority tracts.\nLevel 4, equity integration\nMethod, Social Vulnerability Index and Medicaid only filtering applied to Level 2 scores.\nRole, Turns accessibility into a distributive justice question, asking who loses how much access and where vulnerable groups are systematically penalized.\nLevel 5, emerging AI and robustness\nMethod, Predictive machine learning and simple stochastic surge models.\nRole, Frames a longer term research agenda that can predict hidden demand and stress test the system under future shocks, beyond the scope of a single masters thesis."
+  },
+  {
+    "objectID": "index.html#position-of-the-current-work",
+    "href": "index.html#position-of-the-current-work",
+    "title": "Project Overview",
+    "section": "Position of the current work",
+    "text": "Position of the current work\nCore of the thesis\n\nLevel 2 [E2SFCA] provides the minimum scientifically credible measure of spatial accessibility.\nLevel 4 [equity integration with SVI and Medicaid] translates accessibility into explicit distributive justice questions, connecting the model to planning practice.\n\nBaseline and teaching tools\n\nLevel 1 [naive distance and p median] serves as a baseline that demonstrates the “distance myth”. It is valuable for teaching and communication, but it is not sufficient for serious policy guidance.\n\nOptional extensions\n\nLevel 3 [a light MCLP style siting of three to five facilities] is implemented as scenario analysis. It helps explore intervention options, but it is not required to answer the core diagnostic and equity questions.\nLevel 5 [predictive or robust optimization] is outlined as future work, for example using machine learning to infer hidden demand or simple stochastic models of surge events.\n\nMessage for the committee\nLevels 2 and 4 form the smallest, necessary combination that fully answers RQ1 and RQ2 for this thesis.\nLevel 1 anchors the analysis in intuitive baselines, while Levels 3 and 5 define a realistic longer term research agenda that can be pursued beyond this project."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "The full thesis engages with over 200 academic and policy sources. Below are the core methodological references that anchor the models and interpretations shown in this site."
+  },
+  {
+    "objectID": "references.html#key-methodological-references",
+    "href": "references.html#key-methodological-references",
+    "title": "References",
+    "section": "Key methodological references",
+    "text": "Key methodological references\n\nCDC. (2020). Delay or Avoidance of Medical Care Because of COVID-19–Related Concerns. MMWR Morbidity and Mortality Weekly Report.\nLuo, W., & Qi, Y. (2009). An enhanced two-step floating catchment area (E2SFCA) method. Health & Place.\nWang, F. (2012). Measurement, optimization, and impact of health care accessibility: A methodological review. Annals of the AAG.\nPlaney, A. M., et al. (2022). Locating equity: Spatial access and health equity analysis of the Medicaid-accepting safety-net. Social Science & Medicine.\nRoy, A., & Kar, B. (2022). A multicriteria decision analysis framework to measure equitable healthcare access during COVID-19.\nFaraji-Najarkolaie, F., et al. (2022). Expanding vulnerability indices for pandemic effects. Journal of Transport & Health.\n\nEtc, additional sources are cited in the written paper but omitted here for brevity."
+  },
+  {
+    "objectID": "references.html#data-sources",
+    "href": "references.html#data-sources",
+    "title": "References",
+    "section": "Data sources",
+    "text": "Data sources\n\nU.S. Census Bureau, ACS 5-year estimates (2021)\nCDC / ATSDR Social Vulnerability Index (SVI)\nOpenDataPhilly and state health sources for hospitals\nCity of Philadelphia and health department pages for community health centers\nHUD Qualified Census Tracts (QCT)\nOpenStreetMap via OSMnx\nWorldPop raster grids"
+  }
+]
